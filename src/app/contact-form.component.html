@@ -1,7 +1,10 @@
 <section class="section">
         <div class="container has-text-centered">
-                <h1 class="title is-1 has-text-centered">Crea Nuovo Contatto</h1>
-                <a id="btnAddContact" (click) ="changeRouteToContactList()" class="button">Lista Contatti</a>
+                <h1 *ngIf ="nuovoContatto; else updateContactTitle" class="title is-1 has-text-centered">Crea Nuovo Contatto</h1>
+                <ng-template #updateContactTitle>
+                        <h1 class="title is-1 has-text-centered">Modifica Contatto</h1>
+                </ng-template>
+                <a id="contactList" (click) ="changeRouteToContactList()" class="button">Lista Contatti</a>
 
 
         </div>
