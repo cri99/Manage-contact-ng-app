@@ -4,17 +4,22 @@ import { HttpClientModule }from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactsService } from './contacts.service';
-import { ContactFormComponent } from './contact-form/contact-form.component';
+import { ContactFormComponent } from './contact-form.component';
+import { ReactiveFormsModule, FormControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { ContactListComponent } from './contact-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    ContactListComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     ContactsService

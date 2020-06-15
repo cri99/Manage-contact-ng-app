@@ -1,0 +1,42 @@
+
+ <section class="section">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 has-text-centered">Lista Contatti</h1>
+      <a id="btnAddContact" routerLink="/addContact" class="button">Aggiungi contatto</a>
+
+      <div class="table-container">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nome</th>
+              <th>Cognome</th>
+              <th>Email</th>
+              <th>Indirizzo</th>
+              <th>Telefono</th>
+              <th>Nota</th>
+              <th>Azioni</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let contact of contacts;  let i = index" [attr.data-index]="i">
+              <td>{{i+1}}</td>
+              <td>{{contact.name}}</td>
+							<td>{{contact.lastname}}</td>
+              <td>{{contact.email}}</td>
+              <td>{{contact.address}}</td>
+              <td>{{contact.phone}}</td>
+              <td>{{contact.note}}</td>
+              <td><a (click) = "changeToUpdateContactComponent(contact)" class="btn-editContact">Modifica</a> 
+                <a (click) = "deleteContact(contact.id, i)" class="btn-deleteContact">Cancella</a>
+
+              </td>
+            </tr>
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>

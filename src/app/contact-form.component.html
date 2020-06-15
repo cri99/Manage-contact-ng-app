@@ -1,0 +1,97 @@
+<section class="section">
+        <div class="container has-text-centered">
+                <h1 class="title is-1 has-text-centered">Crea Nuovo Contatto</h1>
+                <a id="btnAddContact" (click) ="changeRouteToContactList()" class="button">Lista Contatti</a>
+
+
+        </div>
+
+        <form id = "contactFormId" [formGroup]="contactForm" class ="columns is-multiline" (ngSubmit) = "onSubmit()" >
+<div class ="column is-offset-2 is-4">
+                <div class="field">
+                        <label class="label">Nome</label>
+                        <div class="control">
+                                <input [class.is-danger]="name.invalid && 
+                                name.touched" formControlName = "name" class="input" type="text" placeholder="Nome">
+                        </div>
+                        <div *ngIf="name.touched && name.invalid">
+                                <p *ngIf ="name.errors?.required" class ="help is-danger">Il nome è richiesto.</p>
+                        </div>
+                </div>
+
+                <div class="field">
+                        <label class="label">Cognome</label>
+                        <div class="control">
+                                <input [class.is-danger]="lastname.invalid && 
+                                lastname.touched" formControlName = "lastname" class="input" type="text" placeholder="Cognome" value="">
+                        </div>
+                        <div *ngIf="lastname.touched && lastname.invalid">
+                                <p *ngIf ="lastname.errors?.required" class ="help is-danger">Il cognome è richiesto.</p>
+                        </div>
+                </div>
+
+                <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                                <input [class.is-danger]="email.invalid && 
+                                email.touched" formControlName = "email"  class="input" type="email" placeholder="Email" value="">
+                              
+                        </div>
+
+                        <div *ngIf="email.touched && email.invalid">
+                                <p *ngIf ="email.errors?.required" class ="help is-danger">L'email è richiesta.</p>
+                                <p *ngIf ="email.errors?.pattern" class ="help is-danger">L'email non è valida.</p>
+                  
+                        </div>
+                </div>
+        </div>
+        <div class ="column is-4">
+                <div class="field">
+                        <label class="label">Indirizzo</label>
+                        <div class="control">
+                                <input [class.is-danger]="address.invalid && 
+                                address.touched" formControlName = "address" class="input" type="text" placeholder="Indirizzo" value="">
+                        </div>
+                        <div *ngIf="address.touched && address.invalid">
+                                <p *ngIf ="address.errors?.required" class ="help is-danger">L'indirizzo è richiesto.</p>
+                                
+                        </div>
+                        
+                </div>
+                <div class="field">
+                        <label class="label">Telefono</label>
+                        <div class="control">
+                                <input [class.is-danger]="phone.invalid && 
+                                phone.touched"formControlName = "phone" class="input" type="phone" placeholder="Telefono" value="">
+                        </div>
+                        <div *ngIf="phone.touched && phone.invalid">
+                                <p *ngIf ="phone.errors?.required" class ="help is-danger">Il telefono è richiesto.</p>
+                                
+                        </div>
+                </div>
+                <div class="field">
+                        <label class="label">Nota</label>
+                        <div class="control">
+                                <input formControlName = "note" class="input" type="text" placeholder="Nota" value="">
+                        </div>
+                       
+                </div>
+
+        </div>
+
+
+                <div class="column is-4 is-offset-4 field is-grouped">
+                        <div class="btnInviaForm control">
+                                <button type ="submit"[disabled] = "contactForm.invalid" class="button is-link is-fullwidth">Invia</button>
+                        </div>
+                        <div class="btnResettaForm control">
+                                <button type ="button" (click)="resetForm()" class="button is-link is-light is-fullwidth">Resetta</button>
+                        </div>
+                </div>
+
+        </form>
+
+
+
+   
+</section>

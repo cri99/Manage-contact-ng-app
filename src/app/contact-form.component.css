@@ -1,0 +1,11 @@
+#contactFormId{
+    margin-top: 30px;
+}
+
+.btnInviaForm, .btnResettaForm{
+    width:50%;
+}
+
+.d-none{
+    display: none!important;
+}
