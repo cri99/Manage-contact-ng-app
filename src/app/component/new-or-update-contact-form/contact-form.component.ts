@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ContactsService } from './contacts.service';
-import { Contact } from './model/Contact';
+import { ContactsService } from '../../service/contacts.service';
+import { Contact } from '../../model/Contact';
 
 @Component({
   selector: 'app-contact-form',
@@ -63,8 +63,6 @@ export class ContactFormComponent implements OnInit {
       this.resetDataToUpdate();
 
     }
-
-
 
   }
   changeRouteToContactList() {
