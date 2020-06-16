@@ -33,7 +33,7 @@ export class ContactFormComponent implements OnInit {
 
     if (!this.nuovoContatto) {
 
-      this.name.setValue([this.contactToUpdate.Name]);
+      this.name.setValue(this.contactToUpdate.Name);
       this.lastname.setValue(this.contactToUpdate.Lastname);
       this.email.setValue(this.contactToUpdate.Email);
       this.phone.setValue(this.contactToUpdate.Phone);
@@ -57,14 +57,12 @@ export class ContactFormComponent implements OnInit {
       this.resetForm();
     } else {
       this.contactsService.updateContact(this.contactForm.value, this.contactToUpdate.Id).subscribe(
-        response => alert("Contatto aggiornato con successo!"),
-        error => alert("Inserimento del contatto fallito!")
+        response => {alert("Contatto aggiornato con successo!"), this.resetDataToUpdate()},
+        error =>{ alert("Inserimento del contatto fallito!"), console.log(error)}
       );
-      this.resetDataToUpdate();
-
     }
-
   }
+
   changeRouteToContactList() {
     this.resetDataToUpdate();
     this.router.navigate(['/home']);

@@ -1,9 +1,9 @@
 export class Contact{
 
-    private id: string;
+    private id: number;
     private name: string;
     private lastname: string;
-    private  email: string;
+    private email: string;
     private address: string;
     private phone: string;
     private note: string;
@@ -22,6 +22,7 @@ export class Contact{
     get Id(){
         return this.id;
     }
+
     get Name(){
         return this.name;
     }
@@ -32,13 +33,14 @@ export class Contact{
     get Email(){
         return this.email;
     }
-    get Phone(){
-        return this.phone;
-    }
     get Address(){
         return this.address;
+    }
+    get Phone(){
+        return this.phone;
     }
     get Note(){
         return this.note;
     }
+   
 }
