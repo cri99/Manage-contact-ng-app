@@ -3,6 +3,9 @@
 	margin-right: 5px;
 }
 
+.btn-deleteContact{
+	color: red;
+}
 tr td, tr th {
 	text-align: center !important;
 }
@@ -10,3 +13,13 @@ tr td, tr th {
 #btnAddContact{
 margin-bottom:20px;
 }
+
+progress{
+	margin-top: 100px;
+}
+
+
+
+
+
+

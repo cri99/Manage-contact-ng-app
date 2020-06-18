@@ -11,27 +11,32 @@ import { Contact } from '../../model/Contact';
 })
 export class ContactFormComponent implements OnInit {
 
-  nuovoContatto: boolean;
+  isNewContact: boolean; //Indica se la form è per un nuovo contatto (true) o se per la modifica di uno già esistente (false).
   contactForm: FormGroup;
+  showSuccessModal : boolean;
+  showFailureModal : boolean;
   private contactToUpdate: Contact;
 
   constructor(private fb: FormBuilder, private contactsService: ContactsService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.showFailureModal = false;
+    this.showSuccessModal = false;
+    
     this.contactToUpdate = <Contact>this.contactsService.getContactToUpdate();
-    this.nuovoContatto = (this.contactToUpdate == null);
+    this.isNewContact = (this.contactToUpdate == null);
 
     this.contactForm = this.fb.group({
       name: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")]],
       phone: ['', [Validators.required]],
       address: ['', [Validators.required]],
       note: ['']
     });
 
-    if (!this.nuovoContatto) {
+    if (!this.isNewContact) {
 
       this.name.setValue(this.contactToUpdate.Name);
       this.lastname.setValue(this.contactToUpdate.Lastname);
@@ -42,25 +47,32 @@ export class ContactFormComponent implements OnInit {
     }
   }
 
+  //Resetta tutti i campi del form.
   resetForm() {
     this.contactForm.reset();
   }
 
   onSubmit() {
-    if (this.nuovoContatto) {
+    if (this.isNewContact) {
 
       this.contactsService.saveContact(this.contactForm.value)
         .subscribe(
-          response => alert("Contatto inserito con successo!"),
-          error => alert("Inserimento del contatto fallito!")
+          response => this.showSuccessModal = true,
+          error => this.showFailureModal = true
         );
+
       this.resetForm();
+
     } else {
       this.contactsService.updateContact(this.contactForm.value, this.contactToUpdate.Id).subscribe(
-        response => {alert("Contatto aggiornato con successo!"), this.resetDataToUpdate()},
-        error =>{ alert("Inserimento del contatto fallito!"), console.log(error)}
+        response => { this.showSuccessModal = true},
+        error =>{ this.showFailureModal = true}
       );
     }
+  }
+
+  closeModal(){
+    this.showSuccessModal = this.showFailureModal = false;
   }
 
   changeRouteToContactList() {
@@ -72,6 +84,8 @@ export class ContactFormComponent implements OnInit {
     this.contactsService.setContactToUpdate(null);
   }
 
+  //Metodi get per i campi del form.
+
   get name() {
     return this.contactForm.get('name');
   }
@@ -81,7 +95,6 @@ export class ContactFormComponent implements OnInit {
   get email() {
     return this.contactForm.get('email');
   }
-
   get phone() {
     return this.contactForm.get('phone');
   }

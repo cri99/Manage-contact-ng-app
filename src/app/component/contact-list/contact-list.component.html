@@ -1,42 +1,66 @@
 
+
  <section class="section">
     <div class="container has-text-centered">
       <h1 class="title is-1 has-text-centered">Lista Contatti</h1>
       <a id="btnAddContact" routerLink="/addContact" class="button">Aggiungi contatto</a>
+      
+      <progress *ngIf= "showLoader" class="progress is-medium is-dark"></progress>
 
-      <div class="table-container">
-        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nome</th>
-              <th>Cognome</th>
-              <th>Email</th>
-              <th>Indirizzo</th>
-              <th>Telefono</th>
-              <th>Nota</th>
-              <th>Azioni</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let contact of contacts;  let i = index" [attr.data-index]="i">
-              <td>{{i+1}}</td>
-              <td>{{contact.name}}</td>
-							<td>{{contact.lastname}}</td>
-              <td>{{contact.email}}</td>
-              <td>{{contact.address}}</td>
-              <td>{{contact.phone}}</td>
-              <td>{{contact.note}}</td>
-              <td><a (click) = "changeToUpdateContactComponent(contact)" class="btn-editContact">Modifica</a> 
-                <a (click) = "deleteContact(contact.id, i)" class="btn-deleteContact">Cancella</a>
-
-              </td>
-            </tr>
-
-
-          </tbody>
-        </table>
+      <div *ngIf= "contacts.length else noContactsOnServer">
+        <div class ="columns">
+        <div class="field column is-4">
+          <p class="control has-icons-right">
+            <input (input) = "doResearch()" [(ngModel)] ="searchInput" class="input" type="text" placeholder="Ricerca...">
+            
+            <span class="icon is-small is-right">
+              <i class="fa fa-search"></i>
+            </span>
+          </p>
+        </div>
+        <div class = "column is-4 is-offset-4"><h3 class ="subtitle">{{contactsToShow.length}} contatti trovati.</h3></div>
       </div>
+      <div *ngIf ="contactsToShow.length else noContactsResult">
+      
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nome</th>
+                <th>Cognome</th>
+                <th>Email</th>
+                <th>Indirizzo</th>
+                <th>Telefono</th>
+                <th>Nota</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let contact of contactsToShow;  let i = index" [attr.data-index]="i">
+                <td>{{i+1}}</td>
+                <td>{{contact.name}}</td>
+                <td>{{contact.lastname}}</td>
+                <td>{{contact.email}}</td>
+                <td>{{contact.address}}</td>
+                <td>{{contact.phone}}</td>
+                <td>{{contact.note}}</td>
+                <td><a (click) = "changeToUpdateContactComponent(contact)" class="btn-editContact">Modifica</a> 
+                  <a (click) = "deleteContact(contact.id, i)" class="btn-deleteContact">Cancella</a>
+
+                </td>
+              </tr>
+
+
+            </tbody>
+          </table>
+        </div>
     </div>
+      </div>
+    <ng-template #noContactsResult  ><h2 class ="title">Nessun contatto trovato dalla ricerca!</h2></ng-template>
+    <ng-template #noContactsOnServer><h2 class ="title">Nessun contatto memorizzato!</h2></ng-template>
+    
+
+  </div>
   </section>

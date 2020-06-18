@@ -1,6 +1,58 @@
+
+
+        <div [class.is-active] = "showSuccessModal" class="modal">
+          <div (click) =  "closeModal()"class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Operazione riuscita!</p>
+              <button (click) = "closeModal()" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <p *ngIf="isNewContact else modalSuccessContent">Hai creato con successo un nuovo contatto.</p>
+                <ng-template #modalSuccessContent><p>Hai modificato con successo il contatto.</p></ng-template>
+              
+            </section>
+            <footer class="modal-card-foot">
+              <button (click) = "changeRouteToContactList()" class="button is-success">Torna a lista contatti</button>
+              <button (click) = "closeModal()" class="button">
+                <span *ngIf="isNewContact else modalSuccessContinueButton">Aggiungi un altro contatto</span>
+                <ng-template #modalSuccessContinueButton><span>Continua a modificare</span></ng-template>
+              
+              </button>
+            </footer>
+          </div>
+        </div>
+      
+      
+        <div [class.is-active] = "showFailureModal" class="modal">
+          <div (click) =  "closeModal()" class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">Operazione fallita!</p>
+              <button (click) = "closeModal()" class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+              <p *ngIf="isNewContact else modalFailureContent">Qualcosa è andato storto nella creazione del contatto.</p>
+              <ng-template #modalFailureContent><p>Qualcosa è andato storto nella modifica del contatto.</p></ng-template>
+            </section>
+            <footer class="modal-card-foot">
+              <button (click) = "changeRouteToContactList()" class="button is-success">Torna a lista contatti</button>
+              <button (click) = "closeModal()" class="button">
+                      <span *ngIf="isNewContact else modalFailureContinueButton">Aggiungi un altro contatto</span>
+                <ng-template #modalFailureContinueButton><span>Continua a modificare</span></ng-template>
+                </button>
+            </footer>
+          </div>
+        </div>
+        
+
+      
+
+
+
 <section class="section">
         <div class="container has-text-centered">
-                <h1 *ngIf ="nuovoContatto; else updateContactTitle" class="title is-1 has-text-centered">Crea Nuovo Contatto</h1>
+                <h1 *ngIf ="isNewContact; else updateContactTitle" class="title is-1 has-text-centered">Crea Nuovo Contatto</h1>
                 <ng-template #updateContactTitle>
                         <h1 class="title is-1 has-text-centered">Modifica Contatto</h1>
                 </ng-template>
