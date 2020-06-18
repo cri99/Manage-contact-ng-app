@@ -6,6 +6,13 @@
 .btn-deleteContact{
 	color: red;
 }
+
+
+table{
+    display: block;
+    height: 500px;
+    overflow-y: scroll;
+}
 tr td, tr th {
 	text-align: center !important;
 }

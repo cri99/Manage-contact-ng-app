@@ -28,12 +28,12 @@ export class ContactFormComponent implements OnInit {
     this.isNewContact = (this.contactToUpdate == null);
 
     this.contactForm = this.fb.group({
-      name: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]$")]],
+      lastname: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]$")]],
       email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")]],
-      phone: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      note: ['']
+      phone: ['', [Validators.required,  Validators.pattern("^[0-9\-\+]+[0-9\- ]*[0-9]$")]],
+      address: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9]+[a-zA-Z0-9\-\,\/\. ]*[a-zA-Z0-9]$")]],
+      note: ['', [Validators.pattern("^[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]$")]]
     });
 
     if (!this.isNewContact) {

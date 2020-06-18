@@ -71,6 +71,7 @@
                         </div>
                         <div *ngIf="name.touched && name.invalid">
                                 <p *ngIf ="name.errors?.required" class ="help is-danger">Il nome è richiesto.</p>
+                                <p *ngIf ="name.errors?.pattern" class ="help is-danger">Il nome non è valido.</p>
                         </div>
                 </div>
 
@@ -82,6 +83,7 @@
                         </div>
                         <div *ngIf="lastname.touched && lastname.invalid">
                                 <p *ngIf ="lastname.errors?.required" class ="help is-danger">Il cognome è richiesto.</p>
+                                <p *ngIf ="lastname.errors?.pattern" class ="help is-danger">Il cognome non è valido.</p>
                         </div>
                 </div>
 
@@ -109,7 +111,7 @@
                         </div>
                         <div *ngIf="address.touched && address.invalid">
                                 <p *ngIf ="address.errors?.required" class ="help is-danger">L'indirizzo è richiesto.</p>
-                                
+                                <p *ngIf ="address.errors?.pattern" class ="help is-danger">L'indirizzo non è valido.</p>
                         </div>
                         
                 </div>
@@ -121,15 +123,18 @@
                         </div>
                         <div *ngIf="phone.touched && phone.invalid">
                                 <p *ngIf ="phone.errors?.required" class ="help is-danger">Il telefono è richiesto.</p>
-                                
+                                <p *ngIf ="phone.errors?.pattern" class ="help is-danger">Il telefono non è valido.</p>
                         </div>
                 </div>
                 <div class="field">
                         <label class="label">Nota</label>
                         <div class="control">
-                                <input formControlName = "note" class="input" type="text" placeholder="Nota" value="">
+                                <input [class.is-danger]="note.invalid && 
+                                note.touched" formControlName = "note" class="input" type="text" placeholder="Nota" value="">
                         </div>
-                       
+                        <div *ngIf="note.touched && note.invalid">
+                                <p *ngIf ="note.errors?.pattern" class ="help is-danger">La nota non è valida.</p>
+                        </div>
                 </div>
 
         </div>
