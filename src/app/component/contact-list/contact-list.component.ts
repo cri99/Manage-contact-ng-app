@@ -83,8 +83,6 @@ export class ContactListComponent implements OnInit {
             (contact)=> {
               return contact.id != id; }
           );
-        
-        
       });
      
   }

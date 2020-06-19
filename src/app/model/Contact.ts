@@ -8,7 +8,7 @@ export class Contact{
     private phone: string;
     private note: string;
 
-    constructor(contact){
+    constructor(contact : any){
         this.id = contact.id;
         this.name = contact.name;
         this.lastname = contact.lastname;

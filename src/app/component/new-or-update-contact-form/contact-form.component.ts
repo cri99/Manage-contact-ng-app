@@ -11,8 +11,8 @@ import { Contact } from '../../model/Contact';
 })
 export class ContactFormComponent implements OnInit {
 
-  isNewContact: boolean; //Indica se la form è per un nuovo contatto (true) o se per la modifica di uno già esistente (false).
-  contactForm: FormGroup;
+  isNewContact : boolean; //Indica se la form è per un nuovo contatto (true) o se per la modifica di uno già esistente (false).
+  contactForm : FormGroup;
   showSuccessModal : boolean;
   showFailureModal : boolean;
   private contactToUpdate: Contact;

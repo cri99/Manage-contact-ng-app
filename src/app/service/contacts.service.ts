@@ -8,37 +8,38 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ContactsService {
 
-  private baseUrlServer: string;
-  private contactsUrl: string;
-
+   //Url base del server
+   private baseUrlServer: string;
+  
    contactToUpdate : Contact;
 
-  constructor(private http: HttpClient) {
-    this.baseUrlServer = 'http://localhost:9000/';
-    this.contactsUrl = this.baseUrlServer+'contacts';
+   constructor(private http: HttpClient) {
+    this.baseUrlServer = 'http://localhost:9000';
    }
 
    public getContactToUpdate(){
       return this.contactToUpdate;
    }
 
-   public setContactToUpdate(c){
+   public setContactToUpdate(c : Contact){
       this.contactToUpdate = c;
    }
 
+
+
    public getContacts(){
-      return this.http.get(this.contactsUrl);
+      return this.http.get(this.baseUrlServer+'/contacts');
    }
 
-   public deleteContact(id){
-      return this.http.delete(this.baseUrlServer+"deleteContact?id="+id);
+   public deleteContact(id : Number){
+      return this.http.delete(this.baseUrlServer+"/deleteContact?id="+id);
    }
 
-   public saveContact(contact){
-      return this.http.post(this.baseUrlServer+"saveContact",contact);
+   public saveContact(contact : Contact){
+      return this.http.post(this.baseUrlServer+"/saveContact",contact);
    }
 
    public updateContact(contact, id){
-      return this.http.post(this.baseUrlServer+"updateContact/"+id,contact);
+      return this.http.post(this.baseUrlServer+"/updateContact/"+id,contact);
    }
 }
