@@ -10,25 +10,13 @@
     display: none!important;
 }
 
+
 .modal.is-active .modal-card{
     position: relative;
-    animation-name: modalAnimation;
-    animation-duration: 0.5s;
-    
 }
 
 .modal.is-hidden .modal-card{
     position: relative;
-    animation-name: modalAnimation;
-    animation-duration: 0.5s;
-    animation-direction: reverse;
-}
-
-@keyframes modalAnimation{
-    0% { bottom: -20%; opacity:0 ;}
-
-    100% {bottom: 0px; opacity:1; }
-
 }
 
 body{

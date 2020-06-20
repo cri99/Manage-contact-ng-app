@@ -1,8 +1,8 @@
 
-
-        <div [class.is-active] = "showSuccessModal" class="modal">
+<div  [class.is-active]="showSuccessModal" class="modal">
+        
           <div (click) =  "closeModal()"class="modal-background"></div>
-          <div class="modal-card">
+          <div [@modalShowHide] ="modalAnimation" class="modal-card">
             <header class="modal-card-head">
               <p class="modal-card-title">Operazione riuscita!</p>
               <button (click) = "closeModal()" class="delete" aria-label="close"></button>
@@ -22,7 +22,6 @@
             </footer>
           </div>
         </div>
-      
       
         <div [class.is-active] = "showFailureModal" class="modal">
           <div (click) =  "closeModal()" class="modal-background"></div>
@@ -111,7 +110,6 @@
                         </div>
                         <div *ngIf="address.touched && address.invalid">
                                 <p *ngIf ="address.errors?.required" class ="help is-danger">L'indirizzo è richiesto.</p>
-                                <p *ngIf ="address.errors?.pattern" class ="help is-danger">L'indirizzo non è valido.</p>
                         </div>
                         
                 </div>
@@ -131,9 +129,6 @@
                         <div class="control">
                                 <input [class.is-danger]="note.invalid && 
                                 note.touched" formControlName = "note" class="input" type="text" placeholder="Nota" value="">
-                        </div>
-                        <div *ngIf="note.touched && note.invalid">
-                                <p *ngIf ="note.errors?.pattern" class ="help is-danger">La nota non è valida.</p>
                         </div>
                 </div>
 

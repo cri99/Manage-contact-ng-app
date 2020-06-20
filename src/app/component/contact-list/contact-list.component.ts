@@ -6,11 +6,37 @@ import { Component, OnInit} from '@angular/core';
 import { ContactsService } from '../../service/contacts.service';
 import { Contact } from '../../model/Contact';
 import { Router } from '@angular/router';
+import { animation } from '@angular/animations';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: 'app-contact-list',
   templateUrl: './contact-list.component.html',
-  styleUrls: ['./contact-list.component.css']
+  styleUrls: ['./contact-list.component.css'],
+  animations: [
+    trigger('removeContactListAnimation', [
+      state('show', style({
+        opacity:1,
+        'line-height':'100%'
+      })),
+      state('hide', style({
+        opacity:0,
+        'line-height':'0%'
+      })),
+      
+      transition('show => hide', [
+        animate('0.1s')
+      ])
+
+    ])
+  ]
+  
 })
 
 export class ContactListComponent implements OnInit {
@@ -24,6 +50,9 @@ export class ContactListComponent implements OnInit {
                           di default il contenuto è uguale a contacts. */ 
 
   showLoader : boolean; //Se true viene mostrato il loader della lista contatti.
+
+  contactIdToDelete = -1;
+  removeContactInterval = null;
 
   /*
   * Si definisce tramite grazie alla Dependency Injection un'istanza del service
@@ -58,7 +87,12 @@ export class ContactListComponent implements OnInit {
     
   }
 
+  
+
   deleteContact(id, index) : void{
+  this.contactIdToDelete = id;
+
+  
     /*
     * Tramite l'id e la posizione di visualizzazione attuale in contactsToShow si elimina 
     * il contatto. 
@@ -68,6 +102,10 @@ export class ContactListComponent implements OnInit {
     */
     this.contactService.deleteContact(id).subscribe(
       ()=> {
+
+        clearInterval(this.removeContactInterval);
+        this.removeContactInterval = setTimeout(()=>{
+   
         /* contactsToShow è sempre uguale ai contatti che sta vedendo effettivamente l'utente, ovvero
          * se l'utente effettua la ricerca ed ottiene tre risultati, contactsToShow sarà un array 
          * composto da quei tre risultati, pertanto in questo caso basta effettuare uno splice per 
@@ -83,8 +121,11 @@ export class ContactListComponent implements OnInit {
             (contact)=> {
               return contact.id != id; }
           );
-      });
-     
+
+          //Si imposta una pausa di 100ms, pari alla durata dell'animazione di rimozione del contatto.
+      }, 100);
+
+    })  
   }
 
 

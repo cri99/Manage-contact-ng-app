@@ -7,6 +7,7 @@ import { ContactsService } from './service/contacts.service';
 import { ContactFormComponent } from './component/new-or-update-contact-form/contact-form.component';
 import { ReactiveFormsModule, FormControl, FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { ContactListComponent } from './component/contact-list/contact-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ContactListComponent } from './component/contact-list/contact-list.comp
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ContactsService
