@@ -34,17 +34,22 @@ import {
     ])
   ]
 })
+
 export class ContactFormComponent implements OnInit {
 
-  isNewContact : boolean; //Indica se la form è per un nuovo contatto (true) o se per la modifica di uno già esistente (false).
+  
   contactForm : FormGroup;
-  modalAnimation : string;
-  showSuccessModal : boolean;
-  showFailureModal : boolean;
-  private contactToUpdate: Contact;
+  modalAnimation : string; // Se "show" viene mostrata l'animazione, se "hide", no.
+  showSuccessModal : boolean; //Se "true" viene mostrata all'utente il modal di successo.
+  showFailureModal : boolean; //Se "true" viene mostrata all'utente il modal di fallimento.
 
-  constructor(private fb: FormBuilder, private contactsService: ContactsService,
-    private router: Router) { }
+  isNewContact : boolean; /*Indica se la form è per un nuovo contatto (true) o se per 
+                            la modifica di uno già esistente (false). */
+  private contactToUpdate: Contact; /* Il contatto da modificare, fornito da contactservice.
+                                       Se null, allora non c'è alcun contatto da modificare e 
+                                       il componente si riferisce alla creazione di un nuovo contatto. */
+
+  constructor(private fb: FormBuilder, private contactsService: ContactsService, private router: Router) { }
 
   ngOnInit(): void {
     this.modalAnimation = "hide";
@@ -52,7 +57,7 @@ export class ContactFormComponent implements OnInit {
     this.showSuccessModal = false;
     
     this.contactToUpdate = this.contactsService.getContactToUpdate();
-    this.isNewContact = (this.contactToUpdate == null);
+    this.isNewContact = (this.contactToUpdate == null); 
 
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern("^[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]$")]],
@@ -63,14 +68,16 @@ export class ContactFormComponent implements OnInit {
       note: ['', []]
     });
 
+    /*Se la form si riferisce alla modifica di un contatto già esistente, 
+    si inizializza i campi del form, con i dati del contatto da modificare. */
     if (!this.isNewContact) {
 
-      this.name.setValue(this.contactToUpdate.Name);
-      this.lastname.setValue(this.contactToUpdate.Lastname);
-      this.email.setValue(this.contactToUpdate.Email);
-      this.phone.setValue(this.contactToUpdate.Phone);
-      this.address.setValue(this.contactToUpdate.Address);
-      this.note.setValue(this.contactToUpdate.Note);
+      this.name.setValue(this.contactToUpdate.name);
+      this.lastname.setValue(this.contactToUpdate.lastname);
+      this.email.setValue(this.contactToUpdate.email);
+      this.phone.setValue(this.contactToUpdate.phone);
+      this.address.setValue(this.contactToUpdate.address);
+      this.note.setValue(this.contactToUpdate.note);
     }
   }
 
@@ -102,7 +109,7 @@ export class ContactFormComponent implements OnInit {
       this.resetForm();
 
     } else {
-      this.contactsService.updateContact(this.contactForm.value, this.contactToUpdate.Id).subscribe(
+      this.contactsService.updateContact(this.contactForm.value, this.contactToUpdate.id).subscribe(
         response => { this.activeSuccessModal()},
         error =>{ this.activeFailureModal()}
       );
@@ -114,6 +121,8 @@ export class ContactFormComponent implements OnInit {
   closeModal(){
     this.modalAnimation = "hide";
 
+    /* L'intervallo è necessario per dare tempo all'animazione 
+    di chiusura del modal di essere vista.*/
     clearInterval(this.modalInterval);
 
     this.modalInterval = setTimeout(()=>{
@@ -129,6 +138,8 @@ export class ContactFormComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  /*Si imposta il contatto da modificare nel contactService a null, 
+  altrimenti rimarrebbe sempre il solito.*/
   resetDataToUpdate() {
     this.contactsService.setContactToUpdate(null);
   }

@@ -6,7 +6,6 @@ import { Component, OnInit} from '@angular/core';
 import { ContactsService } from '../../service/contacts.service';
 import { Contact } from '../../model/Contact';
 import { Router } from '@angular/router';
-import { animation } from '@angular/animations';
 import {
   trigger,
   state,
@@ -20,6 +19,7 @@ import {
   templateUrl: './contact-list.component.html',
   styleUrls: ['./contact-list.component.css'],
   animations: [
+    //Animazione per quando si cancella un contatto dalla lista.
     trigger('removeContactListAnimation', [
       state('show', style({
         opacity:1,
@@ -31,7 +31,7 @@ import {
       })),
       
       transition('show => hide', [
-        animate('0.1s')
+        animate('0.2s')
       ])
 
     ])
@@ -46,13 +46,16 @@ export class ContactListComponent implements OnInit {
 
   searchInput : string; // Contiene il testo di ricerca immesso dall'utente.
 
-  contactsToShow: any; /*Contiene i contatti risultati dalla ricerca, 
+  contactsToShow: any; /* Contiene i contatti risultati dalla ricerca, 
                           di default il contenuto è uguale a contacts. */ 
 
   showLoader : boolean; //Se true viene mostrato il loader della lista contatti.
 
-  contactIdToDelete = -1;
-  removeContactInterval = null;
+  
+  contactIdToDelete = -1; /*L'animazione @removeContactListAnimation viene mostrata se l'id
+                            del contatto nella lista è uguale a quello di questa variabile.*/
+
+  //removeContactInterval = null;
 
   /*
   * Si definisce tramite grazie alla Dependency Injection un'istanza del service
@@ -91,9 +94,9 @@ export class ContactListComponent implements OnInit {
 
   deleteContact(id, index) : void{
   this.contactIdToDelete = id;
-
+  let removeContactInterval = null;
   
-    /*
+  /*
     * Tramite l'id e la posizione di visualizzazione attuale in contactsToShow si elimina 
     * il contatto. 
     * Il contatto viene eliminato fisicamente dal database attraverso una richiesta che effettuerà
@@ -103,8 +106,8 @@ export class ContactListComponent implements OnInit {
     this.contactService.deleteContact(id).subscribe(
       ()=> {
 
-        clearInterval(this.removeContactInterval);
-        this.removeContactInterval = setTimeout(()=>{
+        //clearInterval(removeContactInterval);
+        removeContactInterval = setTimeout(()=>{
    
         /* contactsToShow è sempre uguale ai contatti che sta vedendo effettivamente l'utente, ovvero
          * se l'utente effettua la ricerca ed ottiene tre risultati, contactsToShow sarà un array 
@@ -123,7 +126,7 @@ export class ContactListComponent implements OnInit {
           );
 
           //Si imposta una pausa di 100ms, pari alla durata dell'animazione di rimozione del contatto.
-      }, 100);
+      }, 200);
 
     })  
   }

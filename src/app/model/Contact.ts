@@ -1,12 +1,12 @@
 export class Contact{
 
-    private id: string;
-    private name: string;
-    private lastname: string;
-    private email: string;
-    private address: string;
-    private phone: string;
-    private note: string;
+    id: string;
+    name: string;
+    lastname: string;
+    email: string;
+    address: string;
+    phone: string;
+    note: string;
 
     constructor(contact : any){
         this.id = contact.id;
@@ -15,32 +15,7 @@ export class Contact{
         this.email = contact.email;
         this.address = contact.address;
         this.phone = contact.phone;
-        this.note = contact.note;
-        
-    }
-
-    get Id(){
-        return this.id;
-    }
-
-    get Name(){
-        return this.name;
-    }
-
-    get Lastname(){
-        return this.lastname;
-    }
-    get Email(){
-        return this.email;
-    }
-    get Address(){
-        return this.address;
-    }
-    get Phone(){
-        return this.phone;
-    }
-    get Note(){
-        return this.note;
+        this.note = contact.note;    
     }
    
 }

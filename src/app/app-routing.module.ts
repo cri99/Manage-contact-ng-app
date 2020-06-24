@@ -6,9 +6,9 @@ import { ContactListComponent } from './component/contact-list/contact-list.comp
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: 'home', component: ContactListComponent} ,
-  { path: 'addContact', component: ContactFormComponent},
-  { path: 'editContact', component: ContactFormComponent}
+  { path: 'home', component: ContactListComponent, data: {animation: 'isLeft'}} ,
+  { path: 'addContact', component: ContactFormComponent, data: {animation: 'isRight'}},
+  { path: 'editContact', component: ContactFormComponent, data: {animation: 'isRight'}}
 ];
 
 @NgModule({

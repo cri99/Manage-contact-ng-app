@@ -17,6 +17,7 @@ export class ContactsService {
     this.baseUrlServer = 'http://localhost:9000';
    }
 
+   //Getter & setter per il contatto da modificare, se esiste.
    public getContactToUpdate(){
       return this.contactToUpdate;
    }
@@ -26,6 +27,7 @@ export class ContactsService {
    }
 
 
+   //Metodi per richiedere o inviare dati al server.
 
    public getContacts(){
       return this.http.get(this.baseUrlServer+'/contacts');
